@@ -34,7 +34,10 @@ module.exports.routes = {
 
   '/': {
     view: 'homepage'
-  }
+  },
+  'GET /login' : 'LoginController.here',
+  'POST /login' : 'LoginController.postcall'
+  
 
   /***************************************************************************
   *                                                                          *
