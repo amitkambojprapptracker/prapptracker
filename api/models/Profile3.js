@@ -2,7 +2,7 @@
 
 module.exports = {
   connection: 'someMysqlServer',
-  tableName: 'users',
+  tableName: 'junior_manager_table;',
   attributes: {
     id: {
       type: 'integer',
@@ -10,17 +10,17 @@ module.exports = {
       autoIncrement: true,
       columnName: 'id'
     },
-    name: {
+    manager_name: {
       type: 'string',
-      columnName: 'name'
+      columnName: 'manager_name'
     },
-    password: {
+    junior_name: {
       type: 'string',
-      columnName: 'password'
+      columnName: 'junior_name'
     },
-    rank: {
+    promotion: {
       type: 'string',
-      columnName: 'rank'
+      columnName: 'promotion'
     },
     created_at: {
     	type: 'datetime',
