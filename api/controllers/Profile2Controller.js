@@ -7,8 +7,20 @@
 
 module.exports = {
 	seeprofile: function (req,res) {
-		console.log(req.session.username);
-		res.view('profile/profile2');
+		if(typeof(req.session.username) !== 'undefined') {
+			if(req.session.rank == 'senior') {
+				senior = req.session.username;
+				Profile2.find({senior_name :senior}).exec(function (err, found){
+	    			res.view('profile/profile2',found);
+				});
+			}
+			else {
+				res.redirect('/login');
+			}
+		}
+		else {
+			res.redirect('/login');
+		}
 	}
 };
 

@@ -7,7 +7,7 @@
 
 module.exports = {
 	here: function (req, res) {
-		console.log('nothing');
+		//console.log('nothing');
 		if(typeof(req.session.rank) !== 'undefined') {
 			if(req.session.rank == 'manager') {
 				res.redirect('/profile1');
