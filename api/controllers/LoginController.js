@@ -7,7 +7,19 @@
 
 module.exports = {
 	here: function (req, res) {
-		console.log(req.method);
+		console.log('nothing');
+		if(typeof(req.session.rank) !== 'undefined') {
+			if(req.session.rank == 'manager') {
+				res.redirect('/profile1');
+			}
+			else if(req.session.rank == 'senior') {
+				res.redirect('/profile2');
+			}
+			else if(req.session.rank == 'junior') {
+				res.redirect('/profile3');
+			}
+		}
+		else
     	  	res.view('login/login');
   	},
   	postcall: function(req , res) {
@@ -21,8 +33,11 @@ module.exports = {
   				res.view('login/login');
   			}
   			else {
-  				req.session.username = u;
   				var rank = found.pop().rank;
+  				console.log(rank);
+  				req.session.username = u;
+  				req.session.rank = rank;
+  				
   				if(rank == 'manager') {
   					res.redirect('/profile1');
   				}

@@ -2,7 +2,7 @@
 
 module.exports = {
   connection: 'someMysqlServer',
-  tableName: 'junior_manager_table;',
+  tableName: 'junior_manager_table',
   attributes: {
     id: {
       type: 'integer',
