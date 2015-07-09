@@ -30,11 +30,11 @@ module.exports = {
 
   			if(_.isEmpty(found)) {
   				console.log('empty');
-  				res.view('login/login');
+  				res.view('login/login',{data:'wrong'});
   			}
   			else {
   				var rank = found.pop().rank;
-  				console.log(rank);
+  				//console.log(rank);
   				req.session.username = u;
   				req.session.rank = rank;
   				

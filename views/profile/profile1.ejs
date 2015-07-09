@@ -26,11 +26,12 @@ body{
 
 <div style = "display:block;margin-top:60px;margin-left:450px;">
 <img src = "http://www.sunshineedu.in/wp-content/uploads/empty-profile.png" style="float:right;margin-right:330px;">
-<p style = "padding-top:30px;"><b>Name</b> : Rahul </p>
-<p style = "padding-top:20px;"><b>Rank</b> : Manager </p>
+<p style = "padding-top:30px;"><b>Name</b> : <%= req.session.username %> </p>
+<p style = "padding-top:20px;"><b>Rank</b> : <%= req.session.rank %> </p>
 </div>
 <br>
 
+<button class = "btn btn-primary" style = "margin-left:450px"> Logout</button>
 <div id = "for_manager" style = "display:block;margin-top:60px;margin-left:450px;" >
 
 

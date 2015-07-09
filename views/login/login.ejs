@@ -136,9 +136,9 @@ width: 250px;
 <p><input type="submit" value="Login"></p>
 </fieldset>
 </form>
-
-<div id = "show-message-here<% req.session.username %>" > <p> Username or password is incorrect </p> </div>
-
+<%if(typeof(data) !== 'undefined') { %>
+<div id = "show-message-here" style = "color:red" > <p> Username or password is incorrect </p> </div>
+<% } %>
 </div> <!-- end login -->
 </body>
 </html>

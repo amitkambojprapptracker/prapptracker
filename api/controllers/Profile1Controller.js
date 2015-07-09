@@ -8,10 +8,13 @@
 module.exports = {
 	seeprofile: function (req,res) {
 		if(typeof(req.session.username) !== 'undefined') {
-			if(req.session.rank == 'senior') {
+			if(req.session.rank == 'manager') {
 				manager = req.session.username;
+				console.log(manager);
 				Profile1.find({manager_name :manager}).exec(function (err, found){
-	    			res.view('profile/profile1',found);
+					var junior_names = found.pop().junior_name;
+					//console.log();
+	    			res.view('profile/profile1',{data : junior_names});
 				});
 			}
 			else {
