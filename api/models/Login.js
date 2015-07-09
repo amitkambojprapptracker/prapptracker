@@ -6,8 +6,8 @@ module.exports = {
   attributes: {
     id: {
       type: 'integer',
-      unique: true,
       primaryKey: true,
+      autoIncrement: true,
       columnName: 'id'
     },
     name: {
@@ -26,5 +26,10 @@ module.exports = {
     	type: 'datetime',
     	columnName: 'created_at'
     }
+  },
+  checkdata: function(name , password) {
+  	Login.query('SELECT count(name) as count FROM users where name="'+u+'" and password="'+p+'"', function (err , found) {
+  			console.log(found); return found;
+  		})
   }
 };

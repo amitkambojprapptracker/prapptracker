@@ -13,8 +13,15 @@ module.exports = {
   	postcall: function(req , res) {
   		u = (req.param('username'));
   		p = (req.param('password'));
-  		Login.findOne(1).exec(function (err , found) {
-  			console.log(found);
+  		Login.query('SELECT * FROM users where name="'+u+'" and password="'+p+'"', function (err , found) {
+  			if( _.isEmpty(found)) {
+  				req.session.username = 'amit';
+  				res.view('login/login');	
+  			}
+  			else {
+  				req.session.username = u;
+  				res.redirect('/profile');
+  			}
   		})
   	}
 };

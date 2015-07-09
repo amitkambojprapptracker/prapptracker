@@ -35,6 +35,7 @@ module.exports.routes = {
   '/': {
     view: 'homepage'
   },
+  '/profile': 'ProfileController.seeprofile',
   'GET /login' : 'LoginController.here',
   'POST /login' : 'LoginController.postcall'
   

@@ -6,6 +6,9 @@
  */
 
 module.exports = {
-	
+	seeprofile: function (req,res) {
+		console.log(req.session.username);
+		//res.view('profile/profile');
+	}
 };
 
