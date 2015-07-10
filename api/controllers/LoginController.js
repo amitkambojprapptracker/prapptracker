@@ -6,7 +6,7 @@
  */
 
 module.exports = {
-	here: function (req, res) {
+	getcall: function (req, res) {
 		//console.log('nothing');
 		if(typeof(req.session.rank) !== 'undefined') {
 			if(req.session.rank == 'manager') {
@@ -48,22 +48,90 @@ module.exports = {
   					res.redirect('/profile3');
   				}
   			}
-    			//console.log(found.pop().rank);
+    			
 		});
 
-  		/*Login.query('SELECT * FROM users where name="'+u+'" and password="'+p+'"', function (err , found) {
-  			//var str = JSON.stringify(found);
-  			//var str = found.split(':');
-  			console.log(found->rank );
-  			if( _.isEmpty(found)) {
-  				req.session.username = 'amit';
-  				res.view('login/login');	
-  			}
-  			else {
-  				req.session.username = u;
-  				res.redirect('/profile1');
-  			}
-  		})*/
-  	}
+  	},
+
+    logout: function(req,res) {
+      //console.log(req.session);
+      req.session.destroy(function(err) {
+        console.log('here');
+        //return 1;
+        res.redirect('/login');
+      });
+    },
+    update: function(req,res) {
+      junior_name = req.param('junior_name');
+      manager_name = req.param('manager_name');
+      promotion = req.param('promotion');
+      /*console.log(junior_name.length);
+      console.log(manager_name.length);
+      console.log(promotion.length);*/
+      l = junior_name.length;
+      if(junior_name[l-1] == ' ') {
+        junior_name = junior_name.substr(0,l-1);
+      }
+      l = manager_name.length;
+      
+      if(manager_name.charAt(l-1) == ' ') {
+        manager_name = manager_name.substr(0,l-1);
+      }
+      l = promotion.length;
+      if(promotion.charAt(l-1) == ' ') {
+        promotion = promotion.substr(0,l-1);
+      }
+      
+      junior_name = "'"+junior_name+"'";
+      manager_name="'"+manager_name+"'";
+      promotion = "'"+promotion+"'";
+      /*console.log(junior_name);
+      console.log(manager_name);
+      console.log(promotion);*/
+      Profile1.query('update junior_manager_table set promotion = '+ promotion + ' where junior_name = '+ junior_name + ' and manager_name = ' + manager_name , function(err,updated){
+        /*console.log(updated);*/
+        res.end();
+      })
+    },
+    updatesenior: function(req,res) {
+
+      junior_name = req.param('junior_name');
+      senior_name = req.param('senior_name');
+      task_id = req.param('task_id');
+      rating = req.param('rating');
+      /*console.log(junior_name.length);
+      console.log(senior_name.length);
+      console.log(task_id.length);*/
+      l = junior_name.length;
+      if(junior_name[l-1] == ' ') {
+        junior_name = junior_name.substr(0,l-1);
+      }
+      l = senior_name.length;
+      
+      if(senior_name.charAt(l-1) == ' ') {
+        senior_name = senior_name.substr(0,l-1);
+      }
+      l = task_id.length;
+      if(task_id.charAt(l-1) == ' ') {
+        task_id = task_id.substr(0,l-1);
+      }
+      l = rating.length;
+      if(rating.charAt(l-1) == ' ') {
+        rating = rating.substr(0,l-1);
+      }
+      
+      junior_name = "'"+junior_name+"'";
+      senior_name="'"+senior_name+"'";
+      task_id = "'"+task_id+"'";
+      rating = "'"+rating+"'";
+      /*console.log(junior_name);
+      console.log(senior_name);
+      console.log(task_id);*/
+      Profile1.query('update junior_senior_table set task_id = '+ task_id + ' , rating = '+ rating + ' where junior_name = '+ junior_name + ' and senior_name = ' + senior_name , function(err,updated){
+        /*console.log(updated);*/
+        res.end();
+      })
+
+    }
 };
 

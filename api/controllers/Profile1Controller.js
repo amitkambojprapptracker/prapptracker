@@ -10,11 +10,10 @@ module.exports = {
 		if(typeof(req.session.username) !== 'undefined') {
 			if(req.session.rank == 'manager') {
 				manager = req.session.username;
-				console.log(manager);
+				//console.log(manager);
 				Profile1.find({manager_name :manager}).exec(function (err, found){
-					var junior_names = found.pop().junior_name;
-					//console.log();
-	    			res.view('profile/profile1',{data : junior_names});
+					console.log(found);
+	    			res.view('profile/profile1',{data : found});
 				});
 			}
 			else {

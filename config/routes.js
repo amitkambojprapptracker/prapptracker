@@ -38,9 +38,12 @@ module.exports.routes = {
   '/profile1': 'Profile1Controller.seeprofile',
   '/profile2': 'Profile2Controller.seeprofile',
   '/profile3': 'Profile3Controller.seeprofile',
-  'GET /login' : 'LoginController.here',
-  'POST /login' : 'LoginController.postcall'
-  
+  'GET /login' : 'LoginController.getcall',
+  'POST /login' : 'LoginController.postcall',
+  '/login/logout' : 'LoginController.logout',
+  '/login/update' : 'LoginController.update',
+  '/login/updatesenior' : 'LoginController.updatesenior'
+   
 
   /***************************************************************************
   *                                                                          *

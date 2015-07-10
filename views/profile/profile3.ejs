@@ -4,13 +4,13 @@
 
 
 <!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<link rel="stylesheet" href="/styles/bootstrap.min.css">
 
 <!-- jQuery library -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="/js/vendors/jquery-1.11.3.min.js"></script>
 
 <!-- Latest compiled JavaScript -->
-<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script src="/js/vendors/bootstrap.min.js"></script>
 
 <style>
 body{
@@ -30,7 +30,7 @@ body{
 <p style = "padding-top:20px;"><b>Rank</b> : <%= req.session.rank %> </p>
 </div>
 <br>
-
+<button id = "logout_button" class = "btn btn-primary" style = "margin-left:450px">Logout </button>
 <div id = "for_senior" style = "display:block;margin-top:60px;margin-left:450px;" >
 
 
@@ -42,17 +42,42 @@ body{
 <th>Manager</th>
 <th>Promotion</th>
 </tr>
+<% for(var i=0; i<data1.length; i++) { %>
 <tr>
-<td>Prashant</td>
-<td>5</td>
-<td>7</td>
-<td>Rahul</td>
-<td>Assistant</td>
+<td><%= data2[i].senior_name %></td>
+<td><%= data2[i].task_id %></td>
+<td><%= data2[i].rating %></td>
+<td><%= data1[i].manager_name %></td>
+<td><%= data1[i].promotion %></td>
 </tr>
+<% } %>
 </table>
 
 </div>
 
 </body>
 </html>
-<script type="text/javascript"></script>
+<script type="text/javascript">
+
+$('#logout_button').click(function() {
+
+	$.ajax({
+    url: '/login/logout',
+    method: 'POST',
+
+    success: function(msg) {
+        window.location.href = "/login";
+    },
+    failure: function(msg) {
+        alert("Fail : " + msg);
+    },
+    error: function(xhr, status, text) {
+        alert('error');
+        /*var response = jQuery.parseJSON(xhr, responseText);
+        alert(response.error);*/
+    }
+	});  
+
+
+});
+</script>

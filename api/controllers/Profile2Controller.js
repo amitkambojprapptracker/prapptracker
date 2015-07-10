@@ -11,7 +11,8 @@ module.exports = {
 			if(req.session.rank == 'senior') {
 				senior = req.session.username;
 				Profile2.find({senior_name :senior}).exec(function (err, found){
-	    			res.view('profile/profile2',found);
+					console.log(found);
+	    			res.view('profile/profile2',{ data : found } );
 				});
 			}
 			else {

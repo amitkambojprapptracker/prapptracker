@@ -4,13 +4,13 @@
 
 
 <!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<link rel="stylesheet" href="/styles/bootstrap.min.css">
 
 <!-- jQuery library -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="/js/vendors/jquery-1.11.3.min.js"></script>
 
 <!-- Latest compiled JavaScript -->
-<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script src="/js/vendors/bootstrap.min.js"></script>
 
 <style>
 body{
@@ -25,40 +25,109 @@ body{
 
 
 <div style = "display:block;margin-top:60px;margin-left:450px;">
-<img src = "http://www.sunshineedu.in/wp-content/uploads/empty-profile.png" style="float:right;margin-right:330px;">
-<p style = "padding-top:30px;"><b>Name</b> : <%= req.session.username %> </p>
+<img src = "/images/empty-profile.png" style="float:right;margin-right:330px;">
+<p style = "padding-top:30px;"><b>Name</b> : <span id = "manager_name" ><%= req.session.username %></span> </p>
 <p style = "padding-top:20px;"><b>Rank</b> : <%= req.session.rank %> </p>
 </div>
 <br>
 
-<button class = "btn btn-primary" style = "margin-left:450px"> Logout</button>
+<button id = "logout_button" class = "btn btn-primary" style = "margin-left:450px">Logout </button>
 <div id = "for_manager" style = "display:block;margin-top:60px;margin-left:450px;" >
-
-
-	<div class="dropdown" style = "float:right;margin-right:550px;">
-  <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Promotion
-  <span class="caret"></span></button>
-  <ul class="dropdown-menu">
-  	<li><a href="#">assistant</a></li>
-    <li><a href="#">assistant manager</a></li>
-    <li><a href="#">developer</a></li>
-    <li><a href="#">senior developer</a></li>
-    <li><a href="#">Tech lead</a></li>
-  </ul>
-</div>
 
 
 <table border="3" cellpadding="55" cellspacing="55">
 <tr style = "padding-bottom:5px">
 <th>Junior Name</th>
+<th>Promotion</th>
 </tr>
+<% for(var i=0; i<data.length; i++) { %>
 <tr>
-<td>Amit</td>
+<td id = "junior_name<%= (i+1) %>"><%= data[i].junior_name %> </td>
+<td id = "promotion<%= (i+1) %>"><%= data[i].promotion %> </td>
+<td > <button id = "edit<%= (i+1) %>" class = "edit btn btn-primary">edit</button>
 </tr>
+<% } %>
 </table>
+<br>
+<div id ="success_message" style = "color:blue;display:none"> The entry has been changed </div>
 
 </div>
 
 </body>
 </html>
-<script type="text/javascript"></script>
+<script type="text/javascript">
+
+$('#logout_button').click(function() {
+
+
+  $.ajax({
+    url: '/login/logout',
+    method: 'POST',
+
+    contentType: 'application/json', 
+
+    success: function(msg) {
+        window.location.href = "/login";
+    },
+    failure: function(msg) {
+        alert("Fail : " + msg);
+    },
+    error: function(xhr, status, text) {
+        alert(text);
+        var response = jQuery.parseJSON(xhr, responseText);
+        alert(response.error);
+    }
+});  
+
+
+});
+
+$(".edit").click(function(){
+
+  var eleId = this.id;
+  var id = (this.id).substr(4);
+  var element = "promotion"+id;
+
+  if(this.innerHTML == 'edit') {
+    document.getElementById(element).contentEditable = true;
+    document.getElementById(element).focus();
+    document.getElementById(element).style.color = "#FFFFFF";
+    this.innerHTML = "save";
+  }
+  else if(this.innerHTML == 'save') {
+    var promotion = document.getElementById(element).innerHTML;
+    var junior_name = document.getElementById('junior_name'+id).innerHTML;
+    var manager_name = document.getElementById('manager_name').innerHTML;
+  
+    var param={
+                'junior_name':junior_name,
+                'manager_name':manager_name,
+                'promotion':promotion
+              }
+    var requestUrl='/login/update';
+
+      $.ajax({
+        type: 'post',
+        url: requestUrl,
+        data: param,
+        dataType:'text',
+        success: function(msg){         
+          document.getElementById(eleId).innerHTML = "edit";
+          document.getElementById(element).contentEditable = false;
+          document.getElementById(element).style.color = "#333333";
+          $('#success_message').show();
+          setTimeout(function() {
+              $('#success_message').fadeOut('slow');
+          }, 3000);
+
+        },
+        error: function(jqXHR, textStatus, errorThrown){
+          alert("error");
+        },
+        complete: function(msg){
+                          
+        }
+      });
+  }
+})
+</script>

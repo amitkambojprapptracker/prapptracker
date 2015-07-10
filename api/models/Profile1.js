@@ -26,5 +26,6 @@ module.exports = {
     	type: 'datetime',
     	columnName: 'created_at'
     }
+    
   }
 };
