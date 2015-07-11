@@ -1,54 +1,111 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <link rel="stylesheet" href="/styles/bootstrap.min.css">
+  <script src="/js/vendors/jquery-1.11.3.min.js"></script>
+  <script src="/js/vendors/bootstrap.min.js"></script>
+  <style type="text/css">
+      
+      body {
+        display: flex;
+        flex-direction: column;
+        margin: 0px;
+      }
 
+      h2 {
+        margin-top: 15px;
+        text-align:center;
+        color:#29A6CF;
+      }
 
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="/styles/bootstrap.min.css">
+      .fortd {
+        text-align: center;
+        width: 160px;
+        color:#FFFFFF;
+      }
 
-<!-- jQuery library -->
-<script src="/js/vendors/jquery-1.11.3.min.js"></script>
+      .fortr {
+        padding-bottom:5px;
+        height:35px;
+      }
+      
 
-<!-- Latest compiled JavaScript -->
-<script src="/js/vendors/bootstrap.min.js"></script>
+      .heading {
+        height: 60px;
+        width: 100%;
+        -moz-box-shadow: 0 0 30px 5px #999;
+        -webkit-box-shadow: 0 0 30px 5px #999;
+        background-color: white;
+      }
 
-<style>
-body{
-	background-color: green;
-}
-</style>
-</head>
-<body>
+      .logout {
+        float:right;
+        margin-right:20px;
+      }
+      .junior-info {
+        margin-top:60px;
+        margin-left:400px;
+      }
 
-<h1 style = "text-align:center">Profile</h1>
-<br>
+      .junior_name {
+        padding-top:85px;
+        float:left;
+        margin-left:30px;
+        color:#29A6CF;
+        font-size:60px;
+        margin-right: 10px;
+      }
+      .rank {
+        margin-top:88px;
+        color:#FFFFFF;
+      }
 
+      .tablediv {
+        display:block;
+        margin-top:60px;
+        margin-left:400px;
+      }
 
-<div style = "display:block;margin-top:60px;margin-left:450px;">
-<img src = "http://www.sunshineedu.in/wp-content/uploads/empty-profile.png" style="float:right;margin-right:330px;">
-<p style = "padding-top:30px;"><b>Name</b> : <%= req.session.username %> </p>
-<p style = "padding-top:20px;"><b>Rank</b> : <%= req.session.rank %> </p>
+      .table-content {
+        width:530px;
+        border-color:#FFFFFF;
+      }
+
+    </style>
+  </head>
+<body background="/images/login.jpg" >
+
+<div class ="heading">
+  <h2>Junior's Portal <button id = "logout_button" class = "btn btn-primary logout">Logout </button></h2>
 </div>
-<br>
-<button id = "logout_button" class = "btn btn-primary" style = "margin-left:450px">Logout </button>
-<div id = "for_senior" style = "display:block;margin-top:60px;margin-left:450px;" >
 
 
-<table border="3" cellpadding="55" cellspacing="55">
-<tr style = "padding-bottom:5px">
-<th>Senior Name</th>
-<th>Task Id</th>
-<th>Rating</th>
-<th>Manager</th>
-<th>Promotion</th>
+<div class = "junior-info">
+      <img src = "/images/empty-profile.png" style="float:left;">
+      <div class = "junior_name" id = "junior_name" ><%= req.session.username %> </div>
+      <br>
+      <br>
+      <div class = "rank">( <%= req.session.rank %> )</div>
+    </div>
+    <br>
+<div id = "for_junior" class = "tablediv" >
+
+
+<table border="3" cellpadding="55" cellspacing="55" class = "table-content">
+<tr class = "fortr">
+<th class = "fortd">Senior Name</th>
+<th class = "fortd">Task Id</th>
+<th class = "fortd">Rating</th>
+<th class = "fortd">Manager</th>
+<th class = "fortd">Promotion</th>
 </tr>
 <% for(var i=0; i<data1.length; i++) { %>
-<tr>
-<td><%= data2[i].senior_name %></td>
-<td><%= data2[i].task_id %></td>
-<td><%= data2[i].rating %></td>
-<td><%= data1[i].manager_name %></td>
-<td><%= data1[i].promotion %></td>
+<tr class = "fortr">
+<td class = "fortd" ><%= data2[i].senior_name %></td>
+<td class = "fortd" ><%= data2[i].task_id %></td>
+<td class = "fortd" ><%= data2[i].rating %></td>
+<td class = "fortd" ><%= data1[i].manager_name %></td>
+<td class = "fortd" ><%= data1[i].promotion %></td>
 </tr>
 <% } %>
 </table>
