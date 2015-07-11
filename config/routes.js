@@ -32,9 +32,7 @@ module.exports.routes = {
   *                                                                          *
   ***************************************************************************/
 
-  '/': {
-    view: 'homepage'
-  },
+  '/' : 'LoginController.getcall',
   '/profile1': 'Profile1Controller.seeprofile',
   '/profile2': 'Profile2Controller.seeprofile',
   '/profile3': 'Profile3Controller.seeprofile',
